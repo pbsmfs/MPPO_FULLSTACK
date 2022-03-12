@@ -2,7 +2,8 @@
 exports.seed = async function(knex) {
   await knex('data').del()
   await knex('data').insert([
-    {sensor_id: 1, 
+    {
+      sensor_id: 1, 
       start_date: '09.12.2020 23:59:13', 
       end_date: '09.12.2020 23:59:13', 
       on_reactive_a: -600.0, 
@@ -19,7 +20,8 @@ exports.seed = async function(knex) {
       on_cos_c: 0.999,
       blocks_amount: 0
     },
-    {sensor_id: 1, 
+    {
+      sensor_id: 1, 
       start_date: '10.12.2020 00:59:26', 
       end_date: '10.12.2020 00:59:26', 
       on_reactive_a: -600.0, 

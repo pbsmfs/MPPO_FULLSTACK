@@ -2,9 +2,9 @@ exports.up = function(knex) {
     return knex.schema
       .createTable('data', function (table) {
         table.increments('id')
-        table.integer('sensor_id')
-        table.string('start_date')
-        table.string('end_date')
+        table.integer('sensor_id').notNullable()
+        table.string('start_date').notNullable()
+        table.string('end_date').notNullable()
         table.decimal('on_reactive_a')
         table.decimal('on_reactive_b')
         table.decimal('on_reactive_c')
