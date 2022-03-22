@@ -1,9 +1,5 @@
-const path = require('path');
-// Update with your config settings.
 
-module.exports = {
-
-  development: {
+const config = {
     client: 'pg',
     connection: {
       host : '127.0.0.1',
@@ -17,6 +13,7 @@ module.exports = {
       directory:  './migrations'
     },
     useNullAsDefault: true
-  }
 
 };
+
+export default config

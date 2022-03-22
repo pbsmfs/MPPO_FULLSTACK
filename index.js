@@ -9,15 +9,24 @@ app.use(bodyParser.json());
 
 app.use('/static', express.static('data'));
 
+// app.get('/data/ids', (req, res) => { 
+//   fetch(`http://localhost:${port}/static/${req.body.id}.csv`)
+//   .then(response => response.text())
+//   .then(response => papaparse.parse(response, {skipEmptyLines: true}))
+//   .then(response => res.send(response))
+
+// }
+// );
+
 app.get('/data/:id', (req, res) => { 
     fetch(`http://localhost:${port}/static/${req.body.id}.csv`)
     .then(response => response.text())
     .then(response => papaparse.parse(response, {skipEmptyLines: true}))
     .then(response => res.send(response))
-    /*
-    TODO
-    data inserting to db
-    */
+    // 
+    // TODO
+    // data inserting to db
+    // 
   }
 );
 
