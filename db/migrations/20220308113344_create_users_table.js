@@ -1,4 +1,4 @@
-exports.up = function(knex) {
+export function up(knex) {
     return knex.schema
       .createTable('users', function (table) {
         table.increments('id');
@@ -6,9 +6,9 @@ exports.up = function(knex) {
         table.string('login', 255).notNullable().unique()
         table.boolean('isadmin').defaultTo(0)
       });
-  };
+  }
   
-  exports.down = function(knex) {
+  export function down(knex) {
     return knex.schema
       .dropTable('users');
-  };
+  }

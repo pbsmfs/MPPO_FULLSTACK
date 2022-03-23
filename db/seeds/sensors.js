@@ -1,5 +1,5 @@
 
-exports.seed = async function(knex) {
+export async function seed(knex) {
   await knex('data').del()
   await knex('data').insert([
     {
@@ -39,4 +39,4 @@ exports.seed = async function(knex) {
       blocks_amount: 0
     },
   ]);
-};
+}
