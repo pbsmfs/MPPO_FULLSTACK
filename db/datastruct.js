@@ -1,4 +1,4 @@
-export default function dataStruct(item) {
+export default function dataStruct(id, item) {
     let data = {
       sensor_id: id, 
       start_date: item[0], 
@@ -27,7 +27,7 @@ export default function dataStruct(item) {
       off_cos_a: parseFloat(item[23]),
       off_cos_b: parseFloat(item[24]),
       off_cos_c: parseFloat(item[25]),
-      blocks_amount: parseFloat(result[0][26])
+      blocks_amount: parseFloat(item[26])
     }
     return data
 }
