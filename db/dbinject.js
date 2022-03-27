@@ -25,4 +25,4 @@ async function dbInject(id, knex) {
   await knex.insert(result.map(item => dataStruct(id, item))).into('data')
 }
 
-files.map(file => dbInject(file.slice(0, file.length - 4), knex)) // <- HARDCODED ID
+files.map(file => dbInject(file.slice(0, file.length - 4), knex))
