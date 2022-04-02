@@ -3,7 +3,7 @@ import knex from './knex.js'
 import dataStruct from "./datastruct.js";
 import fse from 'fs-extra'
 const port = 3000
-const dir = '../data/'
+const dir = '../data/input'
 const files = fse.readdirSync(dir)
 console.log(files)
 
