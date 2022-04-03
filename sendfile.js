@@ -2,6 +2,7 @@ import fetch from 'node-fetch'
 import fse from 'fs-extra'
 import path from 'path'
 import { fileURLToPath } from 'url';
+import { httpsAgent } from './index.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const port = 3000
@@ -17,12 +18,13 @@ export default async function sendfile(filename) {
         data,
         name: filename
     }
-    await fetch(`http://localhost:${port}/post`, {
+    await fetch(`https://localhost:${port}/post`, {
         method: 'POST',
         body: JSON.stringify(datafile),  
         headers: {
             'Content-Type': 'application/json'
-        }    
+        },
+        agent: httpsAgent    
     })
     // console.log(data)
     console.log(filename)

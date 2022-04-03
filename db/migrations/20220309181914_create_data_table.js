@@ -29,7 +29,7 @@ export function up(knex) {
         table.decimal('off_cos_a', 4, 3)
         table.decimal('off_cos_b', 4, 3)
         table.decimal('off_cos_c', 4, 3)
-        table.integer('blocks_amount')
+        table.decimal('blocks_amount')
       });
   }
   
