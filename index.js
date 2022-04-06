@@ -36,6 +36,34 @@ app.post('/post', (req, res) => {
   fse.outputFile(`${dir}${req.body.name}`, req.body.data)
 })
 
+app.post('/createuser', async (req, res) => {
+  await knex
+  .insert({
+    login: req.body.login,
+    pw: req.body.pw,
+  }).into('users')
+  .then(res.send('user created'))
+})
+
+app.post('/useraccess', async (req, res) => {
+  req.body.data_id.map(async id => await knex
+    .insert({
+        user_id: req.body.user_id,
+        data_id: id
+      }).into('access')
+    )
+  res.send('access granted')
+})
+
+app.delete('/useraccess', async (req, res) => {
+  req.body.data_id.map(async id => await knex
+    .where('data_id', id)
+    .del()
+    .from('access')
+    )
+  res.send('access updated')
+})
+
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
