@@ -35,41 +35,63 @@ app.get('/data/:id', async (req, res) => {
 );
 
 app.use('/getsensors/:id', async (req, res) => {
+  let auth_check = await auth(req.body.login, req.body.pw)
+  auth_check === 'ok'  ?
     await knex('data').select().where('sensor_id', req.params.id)
     .then(response => res.send(response))
-  }
+    : res.status(401).send('unauthorized')
+  } 
 )
 
-app.post('/post', (req, res) => {
-  fse.outputFile(`${dir}${req.body.name}`, req.body.data)
+app.post('/post', async (req, res) => {
+  let auth_check = await auth(req.body.login, req.body.pw)
+  auth_check === 'ok'  ?
+    fse.outputFile(`${dir}${req.body.name}`, req.body.data)
+  : res.status(401).send('unauthorized')
 })
 
 app.post('/createuser', async (req, res) => {
-  await knex
-  .insert({
-    login: req.body.login,
-    pw: req.body.pw,
-  }).into('users')
-  .then(res.send('user created'))
+  let auth_check = await auth(req.body.login, req.body.pw)
+  auth_check === 'ok'  ?
+    await knex
+    .insert({
+      login: req.body.login,
+      pw: req.body.pw,
+    }).into('users')
+    .then(res.send('user created'))
+  : res.status(401).send('unauthorized')
 })
 
 app.post('/useraccess', async (req, res) => {
-  req.body.data_id.map(async id => await knex
-    .insert({
-        user_id: req.body.user_id,
-        data_id: id
-      }).into('access')
-    )
-  res.send('access granted')
+  let auth_check = await auth(req.body.login, req.body.pw)
+  if (auth_check === 'ok')  {
+    req.body.data_id.map(async id => await knex
+      .insert({
+          user_id: req.body.user_id,
+          data_id: id
+        }).into('access')
+      )
+    res.status(200).send('access granted')
+  }   
+  else{
+    res.status(401).send('unauthorized')
+  } 
+
 })
 
 app.delete('/useraccess', async (req, res) => {
-  req.body.data_id.map(async id => await knex
-    .where('data_id', id)
-    .del()
-    .from('access')
-    )
-  res.send('access updated')
+  let auth_check = await auth(req.body.login, req.body.pw)
+  if (auth_check === 'ok')  {
+    req.body.data_id.map(async id => await knex
+      .where('data_id', id)
+      .del()
+      .from('access')
+      )
+    res.send('access updated')
+    }
+  else {
+    res.status(401).send('unauthorized')
+  }
 })
 
 app.get('/', (req, res) => {
