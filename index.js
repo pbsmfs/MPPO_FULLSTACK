@@ -5,6 +5,7 @@ import papaparse from 'papaparse';
 import fse from 'fs-extra'
 import knex from './db/knex.js';
 import https from 'https'
+import auth from './auth.js';
 
 const app = express();
 const port = 3000;
@@ -18,11 +19,18 @@ app.use(bodyParser.json());
 
 app.use('/static', express.static('data/input'));
 
-app.get('/data/:id', (req, res) => { 
-    fetch(`https://localhost:${port}/static/${req.params.id}.csv`)
+app.get('/data/:id', async (req, res) => {
+  let auth_check = await auth(req.body.login, req.body.pw)
+  auth_check === 'ok'  ?  
+    fetch(`https://localhost:${port}/static/${req.params.id}.csv`, {
+        agent: httpsAgent 
+    })
     .then(response => response.text())
     .then(response => papaparse.parse(response, {skipEmptyLines: true}))
     .then(response => res.send(response.data))
+    .then(console.log(auth_check)) 
+    : 
+    res.status(401).send('unauthorized')
   }
 );
 
