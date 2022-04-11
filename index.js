@@ -100,6 +100,19 @@ app.delete('/useraccess', async (req, res) => {
   }
 })
 
+app.get('/getaccessed', async (req, res) => {
+  let auth_check = await auth(req.get('login'), req.get('pw'))
+  console.log(auth_check)
+  if (auth_check === 'ok')  {
+    let user_data = await knex.select('id').where('login', req.get('login')).from('users')
+    let accessed = await knex.select('data_id').where('user_id', user_data[0].id).from('access')
+    res.send(accessed)
+    }
+  else {
+    res.status(401).send('unauthorized')
+  }
+})
+
 app.get('/', (req, res) => {
   res.send('Hello World!');
 });
