@@ -21,7 +21,9 @@ export default async function sendfile(filename) {
         method: 'POST',
         body: JSON.stringify(datafile),  
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'login': 'Admin',
+            'pw': 's'
         },
         agent: httpsAgent    
     })
