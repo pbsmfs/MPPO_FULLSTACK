@@ -5,26 +5,32 @@ import papaparse from 'papaparse';
 import fse from 'fs-extra'
 import knex from './db/knex.js';
 import https from 'https'
+import http from 'http'
 import auth from './auth.js';
 
 const app = express();
-const port = 3000;
-const dir = './data/input/'
+const dir = './data/unprocessed/'
 const key = fse.readFileSync('C:/Users/user/key.pem')
 const cert = fse.readFileSync('C:/Users/user/cert.pem')
-const server = https.createServer({key, cert}, app)
+const server = http.createServer(app)
+const httpsserver = https.createServer({key, cert}, app)
 
+server.listen(80, () => {
+  console.log(`Example app listening at http://localhost`);
+});
+
+httpsserver.listen(443, () => {
+  console.log(`Example app listening at https://localhost`);
+})
 
 app.use(bodyParser.json());
 
-app.use('/static', express.static('data/input'));
+app.use('/static', express.static(`${dir}`));
 
 app.get('/data/:id', async (req, res) => {
-  let auth_check = await auth(req.body.login, req.body.pw)
+  let auth_check = await auth(req.get('login'), req.get('pw'))
   auth_check === 'ok'  ?  
-    fetch(`https://localhost:${port}/static/${req.params.id}.csv`, {
-        agent: httpsAgent 
-    })
+    fetch(`http://localhost/static/${req.params.id}.csv`)
     .then(response => response.text())
     .then(response => papaparse.parse(response, {skipEmptyLines: true}))
     .then(response => res.send(response.data))
@@ -44,10 +50,10 @@ app.use('/getsensors/:id', async (req, res) => {
 )
 
 app.post('/post', async (req, res) => {
-  let auth_check = await auth(req.body.login, req.body.pw)
-  auth_check === 'ok'  ?
+  // let auth_check = await auth(req.body.login, req.body.pw)
+  // auth_check === 'ok'  ?
     fse.outputFile(`${dir}${req.body.name}`, req.body.data)
-  : res.status(401).send('unauthorized')
+  // : res.status(401).send('unauthorized')
 })
 
 app.post('/createuser', async (req, res) => {
@@ -96,10 +102,6 @@ app.delete('/useraccess', async (req, res) => {
 
 app.get('/', (req, res) => {
   res.send('Hello World!');
-});
-
-server.listen(port, () => {
-  console.log(`Example app listening at https://localhost:${port}`);
 });
 
 export const httpsAgent = new https.Agent({

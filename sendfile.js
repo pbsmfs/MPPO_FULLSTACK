@@ -5,7 +5,6 @@ import { fileURLToPath } from 'url';
 import { httpsAgent } from './index.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const port = 3000
 const dir = './outer_data/'
 const files = fse.readdirSync(dir)
 // console.log(files)
@@ -18,7 +17,7 @@ export default async function sendfile(filename) {
         data,
         name: filename
     }
-    await fetch(`https://localhost:${port}/post`, {
+    await fetch(`https://localhost/post`, {
         method: 'POST',
         body: JSON.stringify(datafile),  
         headers: {
