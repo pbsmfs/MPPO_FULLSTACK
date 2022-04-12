@@ -2,16 +2,18 @@ import fetch from 'node-fetch'
 import fse from 'fs-extra'
 import path from 'path'
 import { fileURLToPath } from 'url';
-import { httpsAgent } from './index.js';
+import * as https from 'https'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dir = './outer_data/'
 const files = fse.readdirSync(dir)
-// console.log(files)
+console.log(files)
 
-// files.map(file => sendfile(file))
+const httpsAgent = new https.Agent({
+    rejectUnauthorized: false,
+  });
 
-export default async function sendfile(filename) {
+async function sendfile(filename) {
     let data = fse.readFileSync(path.join(__dirname, `/outer_data/${filename}`), 'utf-8')
     let datafile = {
         data,
@@ -27,8 +29,6 @@ export default async function sendfile(filename) {
         },
         agent: httpsAgent    
     })
-    // console.log(data)
-    console.log(filename)
 }
 
 files.map(file => sendfile(file))

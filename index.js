@@ -4,14 +4,14 @@ import fetch from 'node-fetch'
 import papaparse from 'papaparse';
 import fse from 'fs-extra'
 import knex from './db/knex.js';
-import https from 'https'
-import http from 'http'
+import * as https from 'https'
+import * as http from 'http'
 import auth from './auth.js';
 
 const app = express();
 const dir = './data/unprocessed/'
-const key = fse.readFileSync('C:/Users/user/key.pem')
-const cert = fse.readFileSync('C:/Users/user/cert.pem')
+const key = fse.readFileSync('./certificates/key.pem')
+const cert = fse.readFileSync('./certificates/cert.pem')
 const server = http.createServer(app)
 const httpsserver = https.createServer({key, cert}, app)
 
@@ -117,6 +117,3 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
-export const httpsAgent = new https.Agent({
-  rejectUnauthorized: false,
-});
