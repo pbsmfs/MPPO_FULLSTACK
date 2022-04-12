@@ -7,6 +7,7 @@ import knex from './db/knex.js';
 import * as https from 'https'
 import * as http from 'http'
 import auth from './auth.js';
+import cors from 'cors'
 
 const app = express();
 const dir = './data/unprocessed/'
@@ -22,6 +23,8 @@ server.listen(80, () => {
 httpsserver.listen(443, () => {
   console.log(`Example app listening at https://localhost`);
 })
+
+app.use(cors())
 
 app.use(bodyParser.json());
 
