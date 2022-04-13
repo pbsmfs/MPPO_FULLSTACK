@@ -91,8 +91,9 @@ app.post('/useraccess', async (req, res) => {
 app.delete('/useraccess', async (req, res) => {
   let auth_check = await auth(req.get('login'), req.get('pw'))
   if (auth_check === 'ok')  {
-    req.body.data_id.map(async id => await knex
-      .where('data_id', id)
+    req.body.data_id.map(async data_id => await knex
+      .where('data_id', data_id)
+      .where('user_id', req.body.user_id)
       .del()
       .from('access')
       )
