@@ -9,7 +9,7 @@ const papaparse = require('papaparse')
 // import fse from 'fs-extra'
 const fse = require('fs-extra')
 // import knex from './db/knex.js';
-const knex = require('knex')
+const knex = require('./db/knex.js').default;
 // import * as https from 'https'
 const https = require('https')
 // import * as http from 'http'
