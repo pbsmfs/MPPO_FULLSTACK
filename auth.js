@@ -1,6 +1,6 @@
-import knex from "./db/knex.js";
+const knex =  require("./db/knex.js").default;
 
-export default async function auth(login, pw, admincheck = 0) {
+exports.default = async function auth(login, pw, admincheck = 0) {
         let checked = await knex.select('login', 'pw', 'isadmin').where('login', login).from('users')
         if (checked == []) {
             checked = false

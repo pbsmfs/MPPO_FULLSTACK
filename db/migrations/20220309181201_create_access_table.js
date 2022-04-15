@@ -1,4 +1,4 @@
-export function up(knex) {
+exports.up = function up(knex) {
     return knex.schema
       .createTable('access', function (table) {
         table.increments('id');
@@ -7,7 +7,7 @@ export function up(knex) {
       });
   }
   
-  export function down(knex) {
+  exports.down = function down(knex) {
     return knex.schema
       .dropTable('access');
   }

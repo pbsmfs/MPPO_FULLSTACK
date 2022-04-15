@@ -1,4 +1,4 @@
-export function seed(knex) {
+exports.seed = function(knex) {
     return knex('access').del()
       .then(function () {
         return knex('access').insert([

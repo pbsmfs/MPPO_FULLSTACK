@@ -1,5 +1,5 @@
-import knex from './knex.js'
-import fse from 'fs-extra'
+const knex =  require('./knex.js').default;
+const fse =  require('fs-extra');
 const unprocessed_dir = '../data/unprocessed'
 const processed_dir = '../data/processed'
 const files = fse.readdirSync(processed_dir)

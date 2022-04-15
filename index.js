@@ -1,13 +1,25 @@
-import express from 'express';
-import bodyParser from 'body-parser'
-import fetch from 'node-fetch'
-import papaparse from 'papaparse';
-import fse from 'fs-extra'
-import knex from './db/knex.js';
-import * as https from 'https'
-import * as http from 'http'
-import auth from './auth.js';
-import cors from 'cors'
+// import express from 'express';
+const express = require('express')
+// import bodyParser from 'body-parser'
+const bodyParser = require('body-parser')
+// import fetch from 'node-fetch'
+const fetch = require('isomorphic-fetch')
+// import papaparse from 'papaparse';
+const papaparse = require('papaparse')
+// import fse from 'fs-extra'
+const fse = require('fs-extra')
+// import knex from './db/knex.js';
+const knex = require('knex')
+// import * as https from 'https'
+const https = require('https')
+// import * as http from 'http'
+const http = require('http')
+// import auth from './auth.js';
+const auth =  require('./auth.js').default;
+// import cors from 'cors'
+const cors = require('cors')
+
+// const fs = require('fs')
 
 const app = express();
 const dir = './data/unprocessed/'

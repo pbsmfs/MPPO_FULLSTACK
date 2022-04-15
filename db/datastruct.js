@@ -1,4 +1,4 @@
-export default function dataStruct(id, item) {
+exports.default = function dataStruct(id, item) {
     let data = {
       sensor_id: id, 
       start_date: item[0], 

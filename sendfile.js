@@ -1,10 +1,10 @@
-import fetch from 'node-fetch'
-import fse from 'fs-extra'
-import path from 'path'
-import { fileURLToPath } from 'url';
-import * as https from 'https'
+const fetch =  require('node-fetch');
+const fse =  require('fs-extra');
+const path =  require('path');
+const { fileURLToPath } =  require('url');
+const https = require('https');
 
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
+// const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const dir = './outer_data/'
 const files = fse.readdirSync(dir)
 console.log(files)
