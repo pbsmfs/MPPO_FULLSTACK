@@ -53,14 +53,14 @@ app.use('/getsensors/:id', async (req, res) => {
 )
 
 app.post('/post', async (req, res) => {
-  let auth_check = await auth(req.get('login'), req.get('pw'))
+  let auth_check = await auth(req.get('login'), req.get('pw'), 1)
   auth_check === 'ok'  ?
     fse.outputFile(`${dir}${req.body.name}`, req.body.data)
   : res.status(401).send('unauthorized')
 })
 
 app.post('/createuser', async (req, res) => {
-  let auth_check = await auth(req.get('login'), req.get('pw'))
+  let auth_check = await auth(req.get('login'), req.get('pw'), 1)
   auth_check === 'ok'  ?
     await knex
     .insert({
@@ -72,7 +72,7 @@ app.post('/createuser', async (req, res) => {
 })
 
 app.post('/useraccess', async (req, res) => {
-  let auth_check = await auth(req.get('login'), req.get('pw'))
+  let auth_check = await auth(req.get('login'), req.get('pw'), 1)
   if (auth_check === 'ok')  {
     req.body.data_id.map(async id => await knex
       .insert({
@@ -89,7 +89,7 @@ app.post('/useraccess', async (req, res) => {
 })
 
 app.delete('/useraccess', async (req, res) => {
-  let auth_check = await auth(req.get('login'), req.get('pw'))
+  let auth_check = await auth(req.get('login'), req.get('pw'), 1)
   if (auth_check === 'ok')  {
     req.body.data_id.map(async data_id => await knex
       .where('data_id', data_id)
