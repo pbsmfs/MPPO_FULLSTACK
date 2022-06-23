@@ -18,11 +18,15 @@ const http = require('http')
 const auth =  require('./auth.js').default;
 // import cors from 'cors'
 const cors = require('cors')
-
+const sendfile = require('./sendfile.js').default
+const dbinject = require('./db/dbinject.js').default
 // const fs = require('fs')
 
 const app = express();
+const out_dir = './outer_data/'
+const out_files = fse.readdirSync(out_dir)
 const dir = './data/unprocessed/'
+const unp_files = fse.readdirSync(dir)
 const key = fse.readFileSync('./certificates/key.pem')
 const cert = fse.readFileSync('./certificates/cert.pem')
 const server = http.createServer(app)
@@ -68,6 +72,7 @@ app.post('/post', async (req, res) => {
   let auth_check = await auth(req.get('login'), req.get('pw'), 1)
   auth_check === 'ok'  ?
     fse.outputFile(`${dir}${req.body.name}`, req.body.data)
+    .then(res.send('okbro'))
   : res.status(401).send('unauthorized')
 })
 
@@ -133,3 +138,8 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+
+out_files.map(file => sendfile(file))
+unp_files.map(file => dbinject(file.slice(0, file.length - 4), knex))
+// sendfile()
+// dbinject()
