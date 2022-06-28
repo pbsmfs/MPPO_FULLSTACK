@@ -1,13 +1,12 @@
-# 1. Create db 
-    docker run --name pgdb -e POSTGRES_PASSWORD=s -p 5432:5432 -d postgres:alpine 
+# How to start using docker-compose
+    docker-compose build .
+    docker-compose up
 
-# 2. Run migrations 
-    npm run migrate
+# How to start on bare metal
+    npm i
+    npm start
 
-# 3. Run seeds
-    npm run seed
-
-# 4. Template requests
+# Template requests
 ###  GET:
     1.  http://localhost/getsensors/1607560643
         headers: 'login': 'testuser', 'pw': 123
