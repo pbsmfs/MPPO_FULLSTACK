@@ -2,7 +2,7 @@
     docker-compose build .
     docker-compose up
 
-# How to start on bare metal
+# How to start on bare metal (requires pg to be started manually)
     npm i
     npm start
 
