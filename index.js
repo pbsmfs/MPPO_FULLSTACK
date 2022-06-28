@@ -1,32 +1,18 @@
-// import express from 'express';
 const express = require('express')
-// import bodyParser from 'body-parser'
 const bodyParser = require('body-parser')
-// import fetch from 'node-fetch'
 const fetch = require('isomorphic-fetch')
-// import papaparse from 'papaparse';
 const papaparse = require('papaparse')
-// import fse from 'fs-extra'
 const fse = require('fs-extra')
-// import knex from './db/knex.js';
 const knex = require('./db/knex.js').default;
-// import * as https from 'https'
 const https = require('https')
-// import * as http from 'http'
 const http = require('http')
-// import auth from './auth.js';
-const auth =  require('./auth.js').default;
-// import cors from 'cors'
+const auth = require('./auth.js').default;
 const cors = require('cors')
-const sendfile = require('./sendfile.js').default
-const dbinject = require('./db/dbinject.js').default
-// const fs = require('fs')
+const loadSetup = require('./loadsetup.js')
 
 const app = express();
 const out_dir = './outer_data/'
-const out_files = fse.readdirSync(out_dir)
 const dir = './data/unprocessed/'
-const unp_files = fse.readdirSync(dir)
 const key = fse.readFileSync('./certificates/key.pem')
 const cert = fse.readFileSync('./certificates/cert.pem')
 const server = http.createServer(app)
@@ -138,8 +124,5 @@ app.get('/', (req, res) => {
   res.send('Hello World!');
 });
 
+setTimeout(loadSetup, 5000)
 
-out_files.map(file => sendfile(file))
-unp_files.map(file => dbinject(file.slice(0, file.length - 4), knex))
-// sendfile()
-// dbinject()
