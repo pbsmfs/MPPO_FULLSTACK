@@ -41,7 +41,7 @@ app.get('/data/:id', async (req, res) => {
     .then(response => res.send(response.data))
     .then(console.log(auth_check)) 
     : 
-    res.status(401).send('unauthorized')
+    res.status(401)
   }
 );
 
@@ -50,7 +50,7 @@ app.use('/getsensors/:id', async (req, res) => {
   auth_check === 'ok'  ?
     await knex('data').select().where('sensor_id', req.params.id)
     .then(response => res.send(response))
-    : res.status(401).send('unauthorized')
+    : res.status(401)
   } 
 )
 
@@ -59,7 +59,7 @@ app.post('/post', async (req, res) => {
   auth_check === 'ok'  ?
     fse.outputFile(`${dir}${req.body.name}`, req.body.data)
     .then(res.send('okbro'))
-  : res.status(401).send('unauthorized')
+  : res.status(401)
 })
 
 app.post('/createuser', async (req, res) => {
@@ -71,7 +71,7 @@ app.post('/createuser', async (req, res) => {
       pw: req.body.pw,
     }).into('users')
     .then(res.send('user created'))
-  : res.status(401).send('unauthorized')
+  : res.status(401)
 })
 
 app.post('/useraccess', async (req, res) => {
@@ -83,10 +83,10 @@ app.post('/useraccess', async (req, res) => {
           data_id: id
         }).into('access')
       )
-    res.status(200).send('access granted')
+    res.status(200)
   }   
   else{
-    res.status(401).send('unauthorized')
+    res.status(401)
   } 
 
 })
@@ -103,7 +103,7 @@ app.delete('/useraccess', async (req, res) => {
     res.send('access updated')
     }
   else {
-    res.status(401).send('unauthorized')
+    res.status(401)
   }
 })
 
@@ -116,7 +116,7 @@ app.get('/getaccessed', async (req, res) => {
     res.send(accessed)
     }
   else {
-    res.status(401).send('unauthorized')
+    res.status(401)
   }
 })
 
