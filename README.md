@@ -8,6 +8,7 @@
     npm run seed
 
 # 4. Template requests
+
 ###  GET:
     1.  http://localhost/getsensors/1607560643
         headers: 'login': 'testuser', 'pw': 123
