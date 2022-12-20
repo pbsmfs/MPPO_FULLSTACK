@@ -9,14 +9,14 @@ exports.default = async function auth(login, pw, admincheck = 0) {
             if (admincheck) {
                 if (checked[0].pw == pw) {
                     if (checked[0].isadmin == true) {
-                        return 'ok'
+                        return ['login successful', checked[0]]
                     }
                         
                 }          
         }
             else {
                 if (checked[0].pw == pw) {
-                    return 'ok'
+                    return ['login successful', checked[0]]
                 }  
             }
     }
