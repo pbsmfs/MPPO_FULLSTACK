@@ -1,4 +1,5 @@
 exports.seed = function(knex) {
+  setTimeout(() => {}, 500)
   return knex('users').del()
     .then(function () {
       return knex('users').insert([

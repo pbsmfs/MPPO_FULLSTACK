@@ -1,4 +1,5 @@
 exports.seed = function(knex) {
+  setTimeout(() => {}, 500)
     return knex('access').del()
       .then(function () {
         return knex('access').insert([
