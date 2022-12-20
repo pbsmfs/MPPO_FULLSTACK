@@ -1,8 +1,9 @@
-version: '3.8'
+
+version: "3.8"
 services:
   web:
     container_name: server
-    depends_on:
+    depends_on: 
       - db
     build: .
     ports:
@@ -10,12 +11,11 @@ services:
       - "443:443"
     environment:
       - DATABASE_URL=postgres://postgres:s@db:5432/postgres
-  
   db:
     container_name: db
-    image: postgres:alpine
-    ports:
+    image: "postgres:alpine"
+    ports: 
       - "5432:5432"
-    environment:
+    environment: 
       - POSTGRES_PASSWORD=s
       - POSTGRES_USER=postgres
