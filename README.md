@@ -7,7 +7,7 @@
     npm start
     npm run migrate
     npm run seed
-
+    
 # Template requests
 
 ###  GET:
