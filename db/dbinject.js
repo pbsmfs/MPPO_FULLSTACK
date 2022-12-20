@@ -11,7 +11,7 @@ exports.default = async function dbInject(id, knex, unprocessed_dir) {
     }
   } )
   let result = await response.json()
-  console.log(result)
+  // console.log(result)
   await knex.insert(result.map(item => dataStruct(id, item))).into('data')
   fse.move(`${unprocessed_dir}/${id}.csv`, `${processed_dir}/${id}.csv`) //hardcoded file extension dropped on mapping stage
 }

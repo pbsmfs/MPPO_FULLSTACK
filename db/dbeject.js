@@ -4,7 +4,7 @@ const unprocessed_dir = '../data/unprocessed'
 const processed_dir = '../data/processed'
 const files = fse.readdirSync(processed_dir)
 
-console.log(files)
+// console.log(files)
 
 async function dbEnject(id, knex) {
   await knex.where('sensor_id', id).del().from('data')
